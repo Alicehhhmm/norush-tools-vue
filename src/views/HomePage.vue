@@ -1,3 +1,8 @@
+
+<script setup>
+
+</script>
+
 <template>
   <a-space>
     <a-button type="primary" size="mini">Mini</a-button>
@@ -8,7 +13,16 @@
 
   <!-- 不使用import直接使用组件测试 -->
   <HelloWorld />
-</template>
-<script setup>
+  <Layout />
 
-</script>
+  <!-- 使用unoCSS -->
+  <button 
+  bg="blue-400 hover:blue-500 dark:blue-500 dark:hover:blue-600"
+  text="sm white"
+  font="mono light"
+  p="y-2 x-4"
+  border="2 rounded blue-200"
+  >
+    Button
+  </button>
+</template>

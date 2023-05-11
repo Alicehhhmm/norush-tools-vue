@@ -1,31 +1,42 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-// API自动引入插件
+/**
+ * @description unplugin 自动化引入插件
+ * @param AutoImport|API自动引入插件
+ * @param Components|组件自动引入插件
+ * @param {unplugin-vue-components/resolvers}|各类自动解析器
+ */
 import AutoImport from 'unplugin-auto-import/vite'
-// 组件自动引入插件
 import Components from 'unplugin-vue-components/vite'
-// ArcoVue、VueUse 组件和指令自动引入解析器
 import {
   ArcoResolver,
   VueUseComponentsResolver,
-  VueUseDirectiveResolver
+  VueUseDirectiveResolver,
+  ElementPlusResolver
 } from 'unplugin-vue-components/resolvers'
-// icon 插件
+
+/**
+ * @description icon 插件的引入
+ * @param Icons|插件
+ * @param IconsResolver|自动引入解析器
+ * @param FileSystemIconLoader|加载 loader
+ */
 import Icons from 'unplugin-icons/vite'
-// icon 自动引入解析器
 import IconsResolver from 'unplugin-icons/resolver'
-// icon 加载 loader
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
-// Unocss 插件
+
+/**
+ * @description Unocss 插件的引入
+ * @param Unocss|插件
+ * @param presetUno|默认预设
+ * @param presetAttributify|属性模式预设
+ * @param transformerDirective|指令插件
+ */
 import Unocss from 'unocss/vite'
-// Unocss 默认预设
 import presetUno from '@unocss/preset-uno'
-// Unocss 属性模式预设
 import presetAttributify from '@unocss/preset-attributify'
-// Unocss 指令插件
 import transformerDirective from '@unocss/transformer-directives'
 
 // https://vitejs.dev/config/
@@ -45,8 +56,7 @@ export default defineConfig(({ mode }) => {
       // proxy: {
       //   [viteEnv.VITE_BASE_URL]: {
       //     target: viteEnv.VITE_BASE_SERVER_URL,
-      //     // 允许跨域
-      //     changeOrigin: true,
+      //     changeOrigin: true,// 允许跨域
       //     rewrite: path => path.replace(viteEnv.VITE_BASE_URL, '/')
       //   }
       // }
@@ -82,6 +92,7 @@ export default defineConfig(({ mode }) => {
         // 自定义规则
         rules: []
       }),
+      // 自动化引入配置
       AutoImport({
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
@@ -97,7 +108,7 @@ export default defineConfig(({ mode }) => {
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
           globalsPropValue: true // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
         },
-        resolvers: [ArcoResolver()]
+        resolvers: [ArcoResolver(), ElementPlusResolver()]
       }),
       Components({
         // imports 指定组件所在位置，默认为 src/components
@@ -109,6 +120,7 @@ export default defineConfig(({ mode }) => {
           }),
           VueUseComponentsResolver(),
           VueUseDirectiveResolver(),
+          ElementPlusResolver(),
           IconsResolver({
             // icon自动引入的组件前缀 - 为了统一组件icon组件名称格式
             prefix: 'icon',
@@ -117,6 +129,7 @@ export default defineConfig(({ mode }) => {
           })
         ]
       }),
+      // icon 插件
       Icons({
         compiler: 'vue3',
         customCollections: {
