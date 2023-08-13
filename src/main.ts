@@ -1,10 +1,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import '@/styles/normalize.css'
+import './styles/normalize.css'
 import 'uno.css' // 必须引入unocss样式(因为它存在与依赖包中)
 import App from './App.vue'
 import router from './router'
+
 
 /**
  * @description
