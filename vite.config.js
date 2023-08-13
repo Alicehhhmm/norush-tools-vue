@@ -13,8 +13,7 @@ import Components from 'unplugin-vue-components/vite'
 import {
   ArcoResolver,
   VueUseComponentsResolver,
-  VueUseDirectiveResolver,
-  ElementPlusResolver
+  VueUseDirectiveResolver
 } from 'unplugin-vue-components/resolvers'
 
 /**
@@ -77,6 +76,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     resolve: {
+      extensions: ['.ts', '.js'],
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
@@ -108,7 +108,7 @@ export default defineConfig(({ mode }) => {
           filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
           globalsPropValue: true // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
         },
-        resolvers: [ArcoResolver(), ElementPlusResolver()]
+        resolvers: [ArcoResolver()]
       }),
       Components({
         // imports 指定组件所在位置，默认为 src/components
@@ -120,7 +120,6 @@ export default defineConfig(({ mode }) => {
           }),
           VueUseComponentsResolver(),
           VueUseDirectiveResolver(),
-          ElementPlusResolver(),
           IconsResolver({
             // icon自动引入的组件前缀 - 为了统一组件icon组件名称格式
             prefix: 'icon',

@@ -1,24 +1,20 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-// 引入 Pinia 状态持久化插件
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import '@/styles/normalize.css'
-// 导入Unocss样式
-import 'uno.css'
-
-// import { getConfig } from '@/config/index'
-// console.log(getConfig('appCode'))
-// console.log(getConfig('projectName'))
-// console.log(import.meta.env.VITE_APP_ENV)
-
+import 'uno.css' // 必须引入unocss样式(因为它存在与依赖包中)
 import App from './App.vue'
 import router from './router'
 
+/**
+ * @description
+ * @param Pinia |状态管理
+ * @param router |路由
+ * @param piniaPluginPersistedstate | Pinia 状态持久化插件
+ */
 const app = createApp(App)
 
-// 创建 Pinia 实例
 const pinia = createPinia()
-// 使用 Pinia 状态持久化插件
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 app.use(router)
