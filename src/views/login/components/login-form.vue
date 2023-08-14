@@ -108,8 +108,6 @@
       try {
         // 存储登录Token
         await userStore.login(values as LoginData);
-
-        console.log('@handleSubmit@',router);
         const { redirect, ...othersQuery } = router.currentRoute.value.query;
         router.push({
           name: (redirect as string) || 'Workplace',

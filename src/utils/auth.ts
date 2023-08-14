@@ -9,6 +9,7 @@ const getToken = () => {
 };
 
 const setToken = (token: string) => {
+  console.log('token@', token);
   localStorage.setItem(TOKEN_KEY, token);
 };
 
