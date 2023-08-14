@@ -1,6 +1,8 @@
 
 import type { RouteRecordRaw } from 'vue-router';
 
+export const DEFAULT_LAYOUT = () => import('@/layout/Layout.vue');
+
 /**
  * @description 路由重定向
  */

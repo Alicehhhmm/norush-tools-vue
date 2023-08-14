@@ -10,6 +10,9 @@ import { REDIRECT_MAIN, NOT_FOUND_ROUTE } from './routes/base';
  * @param scrollBehavior|登录页默认滚动置顶
  */
 NProgress.configure({ showSpinner: false });
+import { appRoutes } from './routes';
+
+console.log('appRoutes:', appRoutes);
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,9 +24,12 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/login/index.vue')
-    }
-
+      component: () => import('@/views/login/index.vue'),
+      meta: {
+        requiresAuth: false,
+      },
+    },
+    ...appRoutes,
   ],
   scrollBehavior() {
     return { top: 0 };

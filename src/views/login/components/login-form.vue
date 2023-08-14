@@ -124,7 +124,9 @@
         loginConfig.value.password = rememberPassword ? password : '';
         
       } catch (err) {
+        
         errorMessage.value = (err as Error).message;
+        console.log('err@@@',errorMessage);
       }finally {
         setLoading(false);
       }

@@ -28,7 +28,7 @@ declare module '@vue/runtime-core' {
     copy: typeof import('./src/components/footer copy/index.vue')['default']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    Layout: typeof import('./src/components/Layout.vue')['default']
+    Layout: typeof import('./src/layout/Layout.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
