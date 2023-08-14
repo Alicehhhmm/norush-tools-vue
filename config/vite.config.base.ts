@@ -38,6 +38,12 @@ import presetUno from '@unocss/preset-uno'
 import presetAttributify from '@unocss/preset-attributify'
 import transformerDirective from '@unocss/transformer-directives'
 
+/**
+ * @description Arco 主题样式插件
+ * @param @arco-plugins/vite-vue
+ */
+import configArcoStyleImportPlugin from './plugin/arcoStyleImport';
+
 // https://vitejs.dev/config/
 export default defineConfig({
 
@@ -64,7 +70,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-
+    configArcoStyleImportPlugin(),
     /**
      * @description 使用Unocss
      * @param {string} presets|预设

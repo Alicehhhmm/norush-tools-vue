@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@arco-design/web-vue": "^2.45.3",
+    "@arco-plugins/vite-vue": "^1.4.5",
     "@iconify-json/dashicons": "^1.1.2",
     "@iconify-json/ep": "^1.1.7",
     "@iconify-json/material-symbols": "^1.1.22",
