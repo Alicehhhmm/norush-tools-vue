@@ -5,6 +5,8 @@ import './styles/normalize.css'
 import 'uno.css' // 必须引入unocss样式(因为它存在与依赖包中)
 import App from './App.vue'
 import router from './router'
+import i18n from './locale';
+
 
 
 /**
@@ -19,5 +21,6 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 app.use(router)
+app.use(i18n);
 
 app.mount('#app')

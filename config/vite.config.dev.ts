@@ -11,6 +11,7 @@ export default mergeConfig(
       host: '0.0.0.0',
       port: '8080',
       open: true,
+      strictPort: true, // 端口占用直接退出
       fs: {
         strict: true,
       },
