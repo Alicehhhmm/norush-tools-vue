@@ -48,7 +48,7 @@ import configArcoStyleImportPlugin from './plugin/arcoStyleImport';
 export default defineConfig({
 
   resolve: {
-    extensions: ['.ts', '.js', '.tsx', '.jsx'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.vue'],
     alias: [
       {
         find: '@',
@@ -133,5 +133,22 @@ export default defineConfig({
       },
       autoInstall: true
     })
-  ]
+  ],
+
+  /**
+   * @description CSS预设
+   * @param preprocessorOptions|主题定制化
+   */
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          hack: `true; @import (reference) "${resolve(
+            'src/assets/style/breakpoint.less'
+          )}";`,
+        },
+        javascriptEnabled: true,
+      },
+    },
+  },
 })

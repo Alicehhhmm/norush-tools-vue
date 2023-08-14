@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     ASpace: typeof import('@arco-design/web-vue')['Space']
     ASubMenu: typeof import('@arco-design/web-vue')['SubMenu']
     copy: typeof import('./src/components/footer copy/index.vue')['default']
+    DefaultLayout: typeof import('./src/layout/default-layout.vue')['default']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Layout: typeof import('./src/layout/Layout.vue')['default']

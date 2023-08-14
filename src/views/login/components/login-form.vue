@@ -117,7 +117,7 @@
         });
         Message.success(t('login.form.login.success'));
 
-        // 将密码
+        // 记住密码
         const { rememberPassword } = loginConfig.value;
         const { username, password } = values;
         loginConfig.value.username = rememberPassword ? username : '';

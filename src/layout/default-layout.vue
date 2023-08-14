@@ -101,7 +101,8 @@
     </a-layout>
   </a-layout>
 </template>
-<script>
+
+<script lang="ts" >
 import { defineComponent, ref } from 'vue'
 import { Message } from '@arco-design/web-vue'
 import {
@@ -116,7 +117,7 @@ export default defineComponent({
   },
   setup() {
     const collapsed = ref(false)
-    const onCollapse = (val, type) => {
+    const onCollapse = (val:any, type:any) => {
       const content = type === 'responsive' ? '触发响应式收缩' : '点击触发收缩'
       Message.info({
         content,
@@ -127,7 +128,7 @@ export default defineComponent({
     return {
       collapsed,
       onCollapse,
-      onClickMenuItem(key) {
+      onClickMenuItem(key:any) {
         Message.info({ content: `You select ${key}`, showIcon: true })
       }
     }
