@@ -8,6 +8,10 @@ import type { RouteRecordNormalized } from 'vue-router';
 
 const modules = import.meta.glob('./modules/*.ts', { eager: true });
 
+const externalModules = import.meta.glob('./externalModules/*.ts', {
+  eager: true,
+});
+
 function formatModules(_modules: any, result: RouteRecordNormalized[]) {
   Object.keys(_modules).forEach((key) => {
     const defaultModule = _modules[key].default;
@@ -21,3 +25,9 @@ function formatModules(_modules: any, result: RouteRecordNormalized[]) {
 }
 
 export const appRoutes: RouteRecordNormalized[] = formatModules(modules, []);
+
+// 外部路由
+export const appExternalRoutes: RouteRecordNormalized[] = formatModules(
+  externalModules,
+  []
+);

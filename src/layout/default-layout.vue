@@ -7,6 +7,7 @@
       <a-layout>
         <a-layout-sider 
           style="width: 260px;" 
+          :style="{ paddingTop: true ? '60px' : '' }"
           class="layout-sider"
           breakpoint="xl"
           :collapsed="collapsed"
@@ -31,7 +32,7 @@
         <a-layout class="layout-content" >
           <TabBar />
           <a-layout-content>
-            <PageLayout />
+            <!-- <PageLayout /> -->
           </a-layout-content>
           <Footer />
         </a-layout>
@@ -43,6 +44,7 @@
 
 <script lang="ts" setup>
   import { ref } from "vue"
+  import Menu from '@/layout/Menu/index.vue'
   const collapsed = ref(false);
   const onCollapse = () => {
 
