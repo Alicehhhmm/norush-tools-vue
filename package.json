@@ -34,6 +34,8 @@
     "@unocss/preset-uno": "^0.45.22",
     "@unocss/transformer-directives": "^0.45.22",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "@vue/babel-plugin-jsx": "^1.1.5",
     "@vue/eslint-config-prettier": "^7.1.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.39.0",

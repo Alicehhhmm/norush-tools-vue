@@ -20,7 +20,17 @@
     <div class="center-side">
       <Menu />
     </div>
-    <div class="right-side">Navbar right</div>
+    <ul class="right-side">
+      <li>
+        <a-tooltip :content="$t('settings.search')">
+          <a-button class="nav-btn" type="outline" :shape="'circle'">
+            <template #icon>
+              <icon-search />
+            </template>
+          </a-button>
+        </a-tooltip>
+      </li>
+    </ul>
   </a-layout-header>
 </template>
 

@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 /**
  * @description unplugin 自动化引入插件
@@ -70,6 +71,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    vueJsx(),
     configArcoStyleImportPlugin(),
     /**
      * @description 使用Unocss
