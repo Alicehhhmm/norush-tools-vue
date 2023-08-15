@@ -25,12 +25,16 @@ declare module '@vue/runtime-core' {
     AMenuItem: typeof import('@arco-design/web-vue')['MenuItem']
     ASpace: typeof import('@arco-design/web-vue')['Space']
     ASubMenu: typeof import('@arco-design/web-vue')['SubMenu']
+    Chart: typeof import('./src/components/Chart/index.vue')['default']
     copy: typeof import('./src/components/footer copy/index.vue')['default']
     DefaultLayout: typeof import('./src/layout/default-layout.vue')['default']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Layout: typeof import('./src/layout/Layout.vue')['default']
+    Menu: typeof import('./src/layout/Menu/index.vue')['default']
+    NavBar: typeof import('./src/layout/NavBar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TabBar: typeof import('./src/layout/TabBar/index.vue')['default']
   }
 }

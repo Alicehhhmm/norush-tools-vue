@@ -1,6 +1,7 @@
 <template>
   <div class="login-form-wrapper">
     <div class="login-form-title">{{ $t('login.form.title') }}</div>
+    <div class="login-form-sub-title">{{ $t('login.form.title') }}</div>
     <div class="login-form-error-msg">{{ errorMessage }}</div>
     <a-form
       ref="loginForm"
@@ -17,7 +18,6 @@
       >
         <a-input
           v-model="userInfo.username"
-
           :placeholder="$t('login.form.userName.placeholder')"
         >
           <template #prefix>
@@ -32,8 +32,7 @@
         hide-label
       >
         <a-input-password
-        v-model="userInfo.password"
-
+          v-model="userInfo.password"
           :placeholder="$t('login.form.password.placeholder')"
           allow-clear
         >
@@ -47,13 +46,13 @@
           <a-checkbox
             checked="rememberPassword"
             :model-value="loginConfig.rememberPassword"
-            @change="(setRememberPassword as any)"
+            @change="setRememberPassword as any"
           >
             {{ $t('login.form.rememberPassword') }}
           </a-checkbox>
           <a-link>{{ $t('login.form.forgetPassword') }}</a-link>
         </div>
-        <a-button type="primary" html-type="submit" long >
+        <a-button type="primary" html-type="submit" long :loading="loading">
           {{ $t('login.form.login') }}
         </a-button>
         <a-button type="text" long class="login-form-register-btn">
@@ -95,7 +94,7 @@
       password: loginConfig.value.password,
   });
 
-  const handleSubmit = async({
+  const handleSubmit = async ({
     errors,
     values,
   }:{
@@ -124,9 +123,7 @@
         loginConfig.value.password = rememberPassword ? password : '';
         
       } catch (err) {
-        
         errorMessage.value = (err as Error).message;
-        console.log('err@@@',errorMessage);
       }finally {
         setLoading(false);
       }

@@ -7,6 +7,7 @@ export interface LoginData {
 }
 
 export interface LoginRes {
+  data: any;
   token: string;
 }
 
