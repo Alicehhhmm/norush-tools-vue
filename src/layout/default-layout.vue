@@ -8,7 +8,8 @@
         <a-layout-sider 
           v-if="renderMenu"
           v-show="!hideMenu"
-          :style="menuStyle"
+          :width="menuWidth"
+          :style="{ paddingTop: navbar ? `${navbarHeight}px` : '' }"
           class="layout-sider"
           breakpoint="xl"
           :collapsed="collapsed"
@@ -72,12 +73,6 @@
   // 响应式
   const collapsed = computed(() => {
     return appStore.menuCollapse;
-  });
-  const menuStyle = computed(() => {
-    const menuFixedWidth = navbar.value ? { width: `${menuWidth.value}px`} : {};
-    const menuPaddingTop = navbar.value ? { paddingTop: `${navbarHeight}px`} : {};
-
-    return  { ...menuFixedWidth, ...menuPaddingTop };
   });
   const paddingStyle = computed(() => {
     const paddingLeft =

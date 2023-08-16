@@ -45,7 +45,6 @@
 
   // 菜单栏显隐-图标
   const topMenu = computed(() => appStore.topMenu && appStore.menu);
-  console.log('@@topMenu@',appStore.hideMenu,appStore.topMenu,appStore.menu);
   
   const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 
