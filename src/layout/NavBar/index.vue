@@ -18,7 +18,7 @@
       </a-space>
     </div>
     <div class="center-side">
-      <Menu />
+      <!-- <Menu /> -->
     </div>
     <ul class="right-side">
       <li>

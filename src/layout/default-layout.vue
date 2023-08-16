@@ -29,7 +29,7 @@
           <Menu />
         </a-drawer>
         <!-- 主体内容 -->
-        <a-layout class="layout-content" >
+        <a-layout class="layout-content" style="padding-left: 260px; padding-top: 60px;" >
           <TabBar />
           <a-layout-content>
             <!-- <PageLayout /> -->

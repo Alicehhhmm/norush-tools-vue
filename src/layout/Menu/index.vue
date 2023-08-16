@@ -7,8 +7,10 @@
   import { listenerRouteChange } from '@/utils/route-listener';
   import { openWindow, regexUrl } from '@/utils';
   import useMenuTree from './use-menu-tree';
-
+  import { Icon } from '@arco-design/web-vue';
+  
   export default defineComponent({
+    emit: ['collapse'],
     setup() {
       const { t } = useI18n();
       const router = useRouter();
@@ -18,7 +20,7 @@
 
       // const topMenu = computed(() => appStore.topMenu);
       const openKeys = ref<string[]>([]);
-      const selectedKey = ref<string[]>([]);
+      const selectedKey = ref<string[]|any>([]);
 
       // 链接逻辑
       const goto = (item: RouteRecordRaw) => {
@@ -73,11 +75,11 @@
           openKeys.value = [...keySet];
 
           selectedKey.value = [
-            activeMenu || menuOpenKeys[menuOpenKeys.length - 1],
+            activeMenu || menuOpenKeys.at(-1),
           ];
         }
       }, true);
-
+     
       const renderSubMenu = () => {
         function travel(_route: RouteRecordRaw[], nodes = []) {
           if(_route){
@@ -87,28 +89,28 @@
               const icon = element?.meta?.icon
                 ? () => h(compile(`<${element?.meta?.icon}/>`))
                 : null;
-                
-                // 定制菜单节点
-                const node = element?.children && element?.children.length !== 0 ? 
-                (
-                  <a-sub-menu
-                    key={element?.name}
-                    v-slots={{
-                      icon,
-                      title: () => h(compile(t(element?.meta?.locale || ''))),
-                    }}
-                  >
-                    {travel(element?.children)}
-                  </a-sub-menu>
-                ) : (
-                  <a-menu-item
-                    key={element?.name}
-                    v-slots={{ icon }}
-                    onClick={() => goto(element)}
-                  >
-                    {t(element?.meta?.locale || '')}
-                  </a-menu-item>
-                );
+
+              // 定制菜单节点
+              const node = element?.children && element?.children.length !== 0 ? 
+              (
+                <a-sub-menu
+                  key={element?.name}
+                  v-slots={{
+                    icon,
+                    title: () => h(compile(t(element?.meta?.locale || ''))),
+                  }}
+                >
+                  {travel(element?.children)}
+                </a-sub-menu>
+              ) : (
+                <a-menu-item
+                  key={element?.name}
+                  v-slots={{ icon }}
+                  onClick={() => goto(element)}
+                >
+                  {t(element?.meta?.locale || '')}
+                </a-menu-item>
+              );
               
               nodes.push(node as never);
             })
@@ -120,7 +122,7 @@
 
       return () => (
         <a-menu
-          mode={!false ? 'horizontal' : 'vertical'}
+          mode={!true ? 'horizontal' : 'vertical'}
           v-model:open-keys={openKeys.value}
           auto-open={false}
           selected-keys={selectedKey.value}
@@ -128,10 +130,23 @@
           level-indent={34}
           style="height: 100%;width:100%;"
         >
-        
           {renderSubMenu()}
         </a-menu>
       )
     },
   })
 </script>
+
+<style lang="less" scoped>
+  :deep(.arco-menu-inner) {
+    .arco-menu-inline-header {
+      display: flex;
+      align-items: center;
+    }
+    .arco-icon {
+      &:not(.arco-icon-down) {
+        font-size: 18px;
+      }
+    }
+  }
+</style>
