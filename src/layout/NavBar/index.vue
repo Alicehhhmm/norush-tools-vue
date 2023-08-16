@@ -13,12 +13,14 @@
           Norush Pro
         </a-typography-title>
         <icon-menu-fold
+          v-if="!topMenu && appStore.device === 'mobile'"
           style="font-size: 22px; cursor: pointer"
+          @click="toggleDrawerMenu"
         />
       </a-space>
     </div>
     <div class="center-side">
-      <!-- <Menu /> -->
+      <Menu v-if="topMenu" />
     </div>
     <ul class="right-side">
       <li>
@@ -35,6 +37,17 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed, ref, inject } from 'vue';
+
+  import { useAppStore, useUserStore } from '@/store';
+
+  const appStore = useAppStore();
+
+  // 菜单栏显隐-图标
+  const topMenu = computed(() => appStore.topMenu && appStore.menu);
+  console.log('@@topMenu@',appStore.hideMenu,appStore.topMenu,appStore.menu);
+  
+  const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 
 </script>
 

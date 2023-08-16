@@ -1,19 +1,21 @@
 <template>
-  <a-layout class="layout">
-    <div class="layout-navbar">
+  <a-layout class="layout" :class="{ mobile: appStore.hideMenu }">
+    <div v-if="navbar" class="layout-navbar">
       <NavBar />
     </div>
     <a-layout>
       <a-layout>
         <a-layout-sider 
-          style="width: 260px;" 
-          :style="{ paddingTop: true ? '60px' : '' }"
+          v-if="renderMenu"
+          v-show="!hideMenu"
+          :style="menuStyle"
           class="layout-sider"
           breakpoint="xl"
           :collapsed="collapsed"
           :collapsible="true"
           :hide-trigger="true"
           :resize-directions="['right']"
+          @collapse="setCollapsed"
         >
           <div class="menu-wrapper">
             <Menu />
@@ -21,20 +23,23 @@
         </a-layout-sider>
         <!-- 侧边栏 -->
         <a-drawer 
+          v-if="hideMenu"
+          :visible="drawerVisible"
           placement="left"
           :footer="false"
           mask-closable
           :closable="false"
+          @cancel="drawerCancel"
         >
           <Menu />
         </a-drawer>
         <!-- 主体内容 -->
-        <a-layout class="layout-content" style="padding-left: 260px; padding-top: 60px;" >
-          <TabBar />
+        <a-layout class="layout-content" :style="paddingStyle" >
+          <TabBar v-if="appStore.tabBar" />
           <a-layout-content>
-            <!-- <PageLayout /> -->
+            <PageLayout />
           </a-layout-content>
-          <Footer />
+          <Footer v-if="footer" />
         </a-layout>
         
       </a-layout>
@@ -43,12 +48,62 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from "vue"
+  import { ref, computed, watch, provide, onMounted } from 'vue';
   import Menu from '@/layout/Menu/index.vue'
-  const collapsed = ref(false);
-  const onCollapse = () => {
+  import { useAppStore, useUserStore } from '@/store';
 
-  }
+  const isInit = ref(false);
+  const appStore = useAppStore();
+
+
+  // 导航栏状态
+  const navbarHeight = appStore.navbarHeight
+  const navbar = computed(() => appStore.navbar);
+  const renderMenu = computed(() => appStore.menu && !appStore.topMenu);
+  const hideMenu = computed(() => appStore.hideMenu);
+  const footer = computed(() => appStore.footer);
+  console.log(hideMenu, 'hideMenu');
+
+  // 菜单栏状态
+  const menuWidth = computed(() => {
+    return appStore.menuCollapse ? 48 : appStore.menuWidth;
+  });
+  
+  // 响应式
+  const collapsed = computed(() => {
+    return appStore.menuCollapse;
+  });
+  const menuStyle = computed(() => {
+    const menuFixedWidth = navbar.value ? { width: `${menuWidth.value}px`} : {};
+    const menuPaddingTop = navbar.value ? { paddingTop: `${navbarHeight}px`} : {};
+
+    return  { ...menuFixedWidth, ...menuPaddingTop };
+  });
+  const paddingStyle = computed(() => {
+    const paddingLeft =
+      renderMenu.value && !hideMenu.value
+        ? { paddingLeft: `${menuWidth.value}px` }
+        : {};
+    const paddingTop = navbar.value ? { paddingTop: `${navbarHeight}px`} : {};
+    return { ...paddingLeft, ...paddingTop };
+  });
+
+  const setCollapsed = (val: boolean) => {
+    if (!isInit.value) return; // 页面初始化菜单状态问题
+    appStore.updateSettings({ menuCollapse: val });
+  };
+  
+  // 菜单栏显隐
+  const drawerVisible = ref(false);
+  const drawerCancel = () => {
+    drawerVisible.value = false;
+  };
+  provide('toggleDrawerMenu', () => {
+    drawerVisible.value = !drawerVisible.value;
+  });
+  onMounted(() => {
+    isInit.value = true;
+  });
 </script>
 
 <style scoped lang="less">

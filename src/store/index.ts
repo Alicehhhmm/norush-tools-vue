@@ -1,6 +1,8 @@
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import useUserStore from './modules/user';
+import useAppStore from './modules/app';
+
 
 
 /**
@@ -11,6 +13,9 @@ import useUserStore from './modules/user';
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate)
 
-export { useUserStore }
+export {
+  useUserStore,
+  useAppStore
+}
 
 export default pinia;

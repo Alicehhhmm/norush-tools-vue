@@ -3,11 +3,10 @@
   import { useI18n } from 'vue-i18n';
   import { useRoute, useRouter, RouteRecordRaw } from 'vue-router';
   import type { RouteMeta } from 'vue-router';
-  // import { useAppStore } from '@/store';
+  import { useAppStore } from '@/store';
   import { listenerRouteChange } from '@/utils/route-listener';
   import { openWindow, regexUrl } from '@/utils';
   import useMenuTree from './use-menu-tree';
-  import { Icon } from '@arco-design/web-vue';
   
   export default defineComponent({
     emit: ['collapse'],
@@ -15,13 +14,28 @@
       const { t } = useI18n();
       const router = useRouter();
       const route = useRoute();
-      const { menuTree } = useMenuTree();
-      
+      const appStore = useAppStore();
 
-      // const topMenu = computed(() => appStore.topMenu);
+      const { menuTree } = useMenuTree();
+      const collapsed = computed({
+        get() {
+          if (appStore.device === 'desktop') return appStore.menuCollapse;
+          return false;
+        },
+        set(value: boolean) {
+          appStore.updateSettings({ menuCollapse: value });
+        },
+      });
+
+      const topMenu = computed(() => appStore.topMenu);
       const openKeys = ref<string[]>([]);
       const selectedKey = ref<string[]|any>([]);
 
+      //菜单折叠
+      const setCollapse = (val: boolean) => {
+        if (appStore.device === 'desktop')
+          appStore.updateSettings({ menuCollapse: val });
+      };
       // 链接逻辑
       const goto = (item: RouteRecordRaw) => {
         // 打开外部链接
@@ -79,7 +93,7 @@
           ];
         }
       }, true);
-     
+      
       const renderSubMenu = () => {
         function travel(_route: RouteRecordRaw[], nodes = []) {
           if(_route){
@@ -122,13 +136,16 @@
 
       return () => (
         <a-menu
-          mode={!true ? 'horizontal' : 'vertical'}
+          mode={topMenu.value ? 'horizontal' : 'vertical'}
+          v-model:collapsed={collapsed.value}
           v-model:open-keys={openKeys.value}
+          show-collapse-button={appStore.device !== 'mobile'}
           auto-open={false}
           selected-keys={selectedKey.value}
           auto-open-selected={true}
           level-indent={34}
           style="height: 100%;width:100%;"
+          onCollapse={setCollapse}
         >
           {renderSubMenu()}
         </a-menu>
