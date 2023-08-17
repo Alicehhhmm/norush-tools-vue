@@ -1,12 +1,14 @@
 /* eslint-env node */
 require('@rushstack/eslint-patch/modern-module-resolution')
+const path = require('path')
 
 module.exports = {
   root: true,
   env: {
     browser: true, // 浏览器环境
     node: true, // Node环境
-    es2021: true // 启用除了modules以外的所有 ECMAScript 6 特性
+    es2021: true, // 启用除了modules以外的所有 ECMAScript 6 特性
+    'vue/setup-compiler-macros': true
   },
   parserOptions: {
     // Parser that checks the content of the <script> tag
@@ -22,7 +24,13 @@ module.exports = {
     './.eslintrc-auto-import.json', // 引入自动化import配置
     'plugin:vue/vue3-essential', //ESLint Vue3 插件扩展
     'eslint:recommended', //ESLint 官方扩展
-    '@vue/eslint-config-prettier/skip-formatting' //Prettier NPM 扩展
+    '@vue/eslint-config-prettier/skip-formatting', //Prettier NPM 扩展
+    'airbnb-base',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:vue/vue3-recommended',
+    'plugin:prettier/recommended'
   ],
   globals: {
     defineEmits: 'readonly',
@@ -32,6 +40,13 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: path.resolve(__dirname, './tsconfig.json')
+      }
+    }
   },
   rules: {
     semi: ['warn', 'never'], // 禁止尾部使用分号

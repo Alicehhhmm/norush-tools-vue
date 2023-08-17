@@ -82,8 +82,7 @@
 
 
 
-  // 菜单栏显隐-图标
-  const topMenu = computed(() => appStore.topMenu && appStore.menu);
+
 
   // 国际哈语言切换
   const setDropDownVisible = () => {
@@ -94,7 +93,9 @@
     });
     triggerBtn.value.dispatchEvent(event);
   };
-  
+
+  // 菜单栏显隐-图标
+   const topMenu = computed(() => appStore.topMenu && appStore.menu);
   const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 
 </script>
