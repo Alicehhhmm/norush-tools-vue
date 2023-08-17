@@ -1,13 +1,13 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution')
-const path = require('path')
+require('@rushstack/eslint-patch/modern-module-resolution');
+const path = require('path');
 
 module.exports = {
   root: true,
   env: {
-    browser: true, // 浏览器环境
-    node: true, // Node环境
-    es2021: true, // 启用除了modules以外的所有 ECMAScript 6 特性
+    'browser': true, // 浏览器环境
+    'node': true, // Node环境
+    'es2021': true, // 启用除了modules以外的所有 ECMAScript 6 特性
     'vue/setup-compiler-macros': true
   },
   parserOptions: {
@@ -30,7 +30,8 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:import/typescript',
     'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'prettier' // 启用prettier规则
   ],
   globals: {
     defineEmits: 'readonly',
@@ -49,7 +50,7 @@ module.exports = {
     }
   },
   rules: {
-    semi: ['warn', 'never'], // 禁止尾部使用分号
+    'semi': ['warn', 'never'], // 禁止尾部使用分号
     'no-debugger': 'warn', // 禁止出现debugger
     // Allow @ts-ignore comment
     '@typescript-eslint/ban-ts-comment': 0,
@@ -81,4 +82,4 @@ module.exports = {
     'prefer-regex-literals': 0,
     'import/no-extraneous-dependencies': 0
   }
-}
+};
