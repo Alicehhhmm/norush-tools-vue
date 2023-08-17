@@ -62,12 +62,35 @@
           </template>
         </a-dropdown>
       </li>
+      <!-- 暗主题切换功能 -->
+      <li>
+        <a-tooltip
+          :content="
+            theme === 'light'
+              ? $t('settings.navbar.theme.toDark')
+              : $t('settings.navbar.theme.toLight')
+          "
+        >
+          <a-button
+            class="nav-btn"
+            type="outline"
+            :shape="'circle'"
+            @click="handleToggleTheme"
+          >
+            <template #icon>
+              <icon-moon-fill v-if="theme === 'dark'" />
+              <icon-sun-fill v-else />
+            </template>
+          </a-button>
+        </a-tooltip>
+      </li>
     </ul>
   </a-layout-header>
 </template>
 
 <script lang="ts" setup>
   import { computed, ref, inject } from 'vue';
+  import { useDark, useToggle, useFullscreen } from '@vueuse/core';
 
   import { useAppStore, useUserStore } from '@/store';
   import useLocale from '@/hooks/locale';
@@ -79,7 +102,9 @@
   const triggerBtn = ref();
   const locales = [...LOCALE_OPTIONS];
   const { changeLocale, currentLocale } = useLocale();
-
+  const theme = computed(() => {
+    return appStore.theme;
+  });
 
 
 
@@ -92,6 +117,23 @@
       cancelable: true,
     });
     triggerBtn.value.dispatchEvent(event);
+  };
+  
+  // 暗色主题切换
+  const isDark = useDark({
+    selector: 'body',
+    attribute: 'arco-theme',
+    valueDark: 'dark',
+    valueLight: 'light',
+    storageKey: 'arco-theme',
+    onChanged(dark: boolean) {
+      // overridden default behavior
+      appStore.toggleTheme(dark);
+    },
+  });
+  const toggleTheme = useToggle(isDark);
+  const handleToggleTheme = () => {
+    toggleTheme();
   };
 
   // 菜单栏显隐-图标
