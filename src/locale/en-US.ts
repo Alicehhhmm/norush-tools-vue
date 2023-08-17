@@ -1,6 +1,9 @@
 import localeLogin from '@/views/login/locale/en-US';
 import localeSettings from './en-US/settings';
 
+import localeWorkplace from '@/views/dashboard/workplace/locale/en-US';
+import localeMonitor from '@/views/dashboard/monitor/locale/en-US';
+
 export default {
   'menu.dashboard': 'Dashboard',
   'menu.server.dashboard': 'Dashboard-Server',
@@ -19,4 +22,7 @@ export default {
   'navbar.action.locale': 'Switch to English',
   ...localeSettings,
   ...localeLogin,
+
+  ...localeWorkplace,
+  ...localeMonitor,
 };

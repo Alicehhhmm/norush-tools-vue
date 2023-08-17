@@ -32,6 +32,36 @@
           </a-button>
         </a-tooltip>
       </li>
+      <!-- 国际化语言切换功能 -->
+      <li>
+        <a-tooltip :content="$t('settings.language')">
+          <a-button
+            class="nav-btn"
+            type="outline"
+            :shape="'circle'"
+            @click="setDropDownVisible"
+          >
+            <template #icon>
+              <icon-language />
+            </template>
+          </a-button>
+        </a-tooltip>
+        <a-dropdown trigger="click" @select="changeLocale as any">
+          <div ref="triggerBtn" class="trigger-btn"></div>
+          <template #content>
+            <a-doption
+              v-for="item in locales"
+              :key="item.value"
+              :value="item.value"
+            >
+              <template #icon>
+                <icon-check v-show="item.value === currentLocale" />
+              </template>
+              {{ item.label }}
+            </a-doption>
+          </template>
+        </a-dropdown>
+      </li>
     </ul>
   </a-layout-header>
 </template>
@@ -40,11 +70,30 @@
   import { computed, ref, inject } from 'vue';
 
   import { useAppStore, useUserStore } from '@/store';
+  import useLocale from '@/hooks/locale';
+  import { LOCALE_OPTIONS } from '@/locale';
+
+
 
   const appStore = useAppStore();
+  const triggerBtn = ref();
+  const locales = [...LOCALE_OPTIONS];
+  const { changeLocale, currentLocale } = useLocale();
+
+
 
   // 菜单栏显隐-图标
   const topMenu = computed(() => appStore.topMenu && appStore.menu);
+
+  // 国际哈语言切换
+  const setDropDownVisible = () => {
+    const event = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true,
+    });
+    triggerBtn.value.dispatchEvent(event);
+  };
   
   const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 
