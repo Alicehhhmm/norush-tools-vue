@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
+
+import globalComponents from '@/components';
+
 import store from './store';
 import router from './router'
 import i18n from './locale';
@@ -23,5 +26,7 @@ app.use(ArcoVueIcon);
 app.use(store);
 app.use(router)
 app.use(i18n);
+app.use(globalComponents);
+
 
 app.mount('#app')

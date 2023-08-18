@@ -44,6 +44,8 @@ const useAppStore = defineStore('app', {
     toggleMenu(value: boolean) {
       this.hideMenu = value;
     },
+
+    // 获取服务器菜单配置
     async fetchServerMenuConfig() {
       let notifyInstance: NotificationReturn | null = null;
       try {

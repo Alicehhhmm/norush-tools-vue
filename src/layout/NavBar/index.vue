@@ -84,6 +84,43 @@
           </a-button>
         </a-tooltip>
       </li>
+      <!-- 全屏缩放功能 -->
+      <li>
+        <a-tooltip
+          :content="
+            isFullscreen
+              ? $t('settings.navbar.screen.toExit')
+              : $t('settings.navbar.screen.toFull')
+          "
+        >
+          <a-button
+            class="nav-btn"
+            type="outline"
+            :shape="'circle'"
+            @click="toggleFullScreen"
+          >
+            <template #icon>
+              <icon-fullscreen-exit v-if="isFullscreen" />
+              <icon-fullscreen v-else />
+            </template>
+          </a-button>
+        </a-tooltip>
+      </li>
+      <!-- 主题配置功能 -->
+      <li>
+        <a-tooltip :content="$t('settings.title')">
+          <a-button
+            class="nav-btn"
+            type="outline"
+            :shape="'circle'"
+            @click="setVisible"
+          >
+            <template #icon>
+              <icon-settings />
+            </template>
+          </a-button>
+        </a-tooltip>
+      </li>
     </ul>
   </a-layout-header>
 </template>
@@ -102,6 +139,7 @@
   const triggerBtn = ref();
   const locales = [...LOCALE_OPTIONS];
   const { changeLocale, currentLocale } = useLocale();
+  const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
   const theme = computed(() => {
     return appStore.theme;
   });
@@ -134,6 +172,11 @@
   const toggleTheme = useToggle(isDark);
   const handleToggleTheme = () => {
     toggleTheme();
+  };
+
+  // 主题全局配置
+  const setVisible = () => {
+    appStore.updateSettings({ globalSettings: true });
   };
 
   // 菜单栏显隐-图标
